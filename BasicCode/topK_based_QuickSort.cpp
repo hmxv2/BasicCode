@@ -4,9 +4,11 @@
 using namespace std;
 int topK_based_quick_sort(int *arr, int start_idx, int end_idx, int topK);
 
-//ĞèÒªÑ¡³öµÚK´óµÄÊı×Ö£¬ËùÒÔ¿ìÅÅÓ¦¸ÃÊÇÒ»¸ö½µĞòµÄ¡£
-//»ù±¾Ë¼ÏëÊÇÔÚ¿ìÅÅµÄ»ù´¡ÉÏ£¬Ã¿´ÎÑ¡Ò»¸öÊıÎªÖ§µã£¬Í¨¹ı¿ìÅÅµÄ¹ı³ÌÑ°ÕÒ¸ÃÖ§µãµÄÕıÈ·Î»ÖÃ£¬È»ºóÅĞ¶ÏµÚk´óÔÚÖ§µãµÄ×ó±ß»¹ÊÇÓÒ±ß£¬´Ó¶øÍê³É¼ôÖ¦¡£
-
+//éœ€è¦é€‰å‡ºç¬¬Kå¤§çš„æ•°å­—ï¼Œæ‰€ä»¥å¿«æ’åº”è¯¥æ˜¯ä¸€ä¸ªé™åºçš„ã€‚
+//åŸºæœ¬æ€æƒ³æ˜¯åœ¨å¿«æ’çš„åŸºç¡€ä¸Šï¼Œæ¯æ¬¡é€‰ä¸€ä¸ªæ•°ä¸ºæ”¯ç‚¹ï¼Œé€šè¿‡å¿«æ’çš„è¿‡ç¨‹å¯»æ‰¾è¯¥æ”¯ç‚¹çš„æ­£ç¡®ä½ç½®ï¼Œç„¶ååˆ¤æ–­ç¬¬kå¤§åœ¨æ”¯ç‚¹çš„å·¦è¾¹è¿˜æ˜¯å³è¾¹ï¼Œä»è€Œå®Œæˆå‰ªæã€‚
+//å¯ä»¥è¯æ˜ï¼Œè¯¥ç®—æ³•çš„å¤æ‚åº¦æ˜¯O(n)ï¼Œå’Œå¿«æ’çš„O(nlgn)ä¸åŒã€‚
+//å¿«æ’ï¼šæ¯æ¬¡çš„æ”¯ç‚¹æ”¾åˆ°å¯¹åº”ä½ç½®æ˜¯nï¼Œé€’å½’æ ‘æ·±åº¦æ˜¯lgnã€‚
+//æœ¬ç®—æ³•ï¼šæ¯æ¬¡è¿›è¡Œäº†å‰ªæï¼Œæ”¯ç‚¹æ”¾åˆ°å¯¹åº”ä½ç½®ï¼Œç¬¬ä¸€æ¬¡æ˜¯nï¼Œç¬¬äºŒæ¬¡æ˜¯n/2,ç¬¬ä¸‰æ¬¡æ˜¯n/4ï¼Œç¬¬å››æ¬¡æ˜¯n/8ä»¥æ­¤ç±»æ¨ï¼Œç´¯åŠ èµ·æ¥æ˜¯2nï¼Œæ•…O(n)çº§åˆ«
 int topK_based_quick_sort(int *arr, int start_idx, int end_idx, int topK)
 {
 	int cur_idx=start_idx;
@@ -44,20 +46,20 @@ int topK_based_quick_sort(int *arr, int start_idx, int end_idx, int topK)
 			}
 		}
 	}
-	//ÒÔÉÏÕâ²¿·Ö´úÂëºÍ¿ìÅÅÒ»ÖÂ¡£
+	//ä»¥ä¸Šè¿™éƒ¨åˆ†ä»£ç å’Œå¿«æ’ä¸€è‡´ã€‚
 	if(cur_idx==topK)
 	{
 		return arr[cur_idx];
 	}
 	else if(cur_idx>topK)
 	{
-		if(start_idx!=cur_idx)//ÒòÎªstart<=cur£¬¹ÊÈç¹û²»µÈ£¬Ôòcur_idx-1ÖÁÉÙµÈÓÚstart_idx£¬¼´²»»áÔ½½ç
-			topK_based_quick_sort(arr, start_idx, cur_idx-1, topK);//×¢Òâ´Ë´¦²»ÊÇÊ²Ã´cur_idx-topK£¬ÒòÎªcur_idxºÍtopK¶¼ÊÇ¾ø¶ÔÎ»ÖÃ
+		if(start_idx!=cur_idx)//å› ä¸ºstart<=curï¼Œæ•…å¦‚æœä¸ç­‰ï¼Œåˆ™cur_idx-1è‡³å°‘ç­‰äºstart_idxï¼Œå³ä¸ä¼šè¶Šç•Œ
+			topK_based_quick_sort(arr, start_idx, cur_idx-1, topK);//æ³¨æ„æ­¤å¤„ä¸æ˜¯ä»€ä¹ˆcur_idx-topKï¼Œå› ä¸ºcur_idxå’ŒtopKéƒ½æ˜¯ç»å¯¹ä½ç½®
 	}
 	else
 	{
-		if(cur_idx!=end_idx)//µÀÀíÍ¬ÉÏÒ»¸öif
-			topK_based_quick_sort(arr, cur_idx+1, end_idx, topK);//×¢Òâ´Ë´¦²»ÊÇÊ²Ã´topK-cur_idx£¬ÒòÎªcur_idxºÍtopK¶¼ÊÇ¾ø¶ÔÎ»ÖÃ
+		if(cur_idx!=end_idx)//é“ç†åŒä¸Šä¸€ä¸ªif
+			topK_based_quick_sort(arr, cur_idx+1, end_idx, topK);//æ³¨æ„æ­¤å¤„ä¸æ˜¯ä»€ä¹ˆtopK-cur_idxï¼Œå› ä¸ºcur_idxå’ŒtopKéƒ½æ˜¯ç»å¯¹ä½ç½®
 	}
 }
 
@@ -68,7 +70,7 @@ int main()
 	const int n=10;
 	int a[n]={3,0,5,2,1,7,9,6,22,10};
 	
-	int topKth_idx=0;//topKth_idx=6Ôò±íÊ¾µÚ7´ó
+	int topKth_idx=0;//topKth_idx=6åˆ™è¡¨ç¤ºç¬¬7å¤§
 	int topKth_num = topK_based_quick_sort(a, 0, n-1, topKth_idx);
 	for(int i=0;i<10;i++)
 		cout<<a[i]<<' ';
